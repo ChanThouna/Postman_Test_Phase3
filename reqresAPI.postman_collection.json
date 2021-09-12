@@ -1,0 +1,223 @@
+{
+	"info": {
+		"_postman_id": "f3a8d398-ed2b-4fdd-aae7-73e15070a3ca",
+		"name": "reqres API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData =  pm.response.json();",
+							"",
+							"pm.test(\"verify page, per_page, total and total_pages value\",function(){",
+							"    pm.expect(jsonData.page).to.equal(1);",
+							"    pm.expect(jsonData.per_page).to.equal(6);",
+							"    pm.expect(jsonData.total).to.equal(12);",
+							"    pm.expect(jsonData.total_pages).to.equal(2);",
+							"",
+							"})",
+							"",
+							" console.log(jsonData.data.length)",
+							"pm.test(\"verify the  response in data\",function(){",
+							"",
+							"for(var i = 0; i<jsonData.data.length;i++){",
+							"    pm.expect(jsonData.data[i].id).to.equal(i+1);",
+							"    var x = i +1;",
+							"    pm.expect(jsonData.data[i].avatar).equals( \"https://reqres.in/img/faces/\"+ x +\"-image.jpg\" ); ",
+							"    pm.expect(jsonData.data[i].email).contains(\"@reqres.in\");",
+							"    pm.expect(jsonData.data[i].first_name).not.empty;",
+							"    pm.expect(jsonData.data[i].last_name).not.empty;",
+							"}",
+							"}) ",
+							"",
+							"pm.test(\"Verify the response in Support \",function(){  ",
+							"    //console.log(pm.globals.get(\"support_url\"));",
+							"   pm.expect(jsonData.support.url).equals(pm.globals.get(\"support_url\"));",
+							"   pm.expect(jsonData.support.text).equals(pm.globals.get(\"support_text\"));",
+							"})",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/users?page=1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"var jsonData =  pm.response.json();",
+							"",
+							"pm.test(\"Verify the name in the response \", function () {",
+							"    pm.expect(jsonData.name).equals(pm.globals.get(\"name\"));",
+							"});",
+							"pm.test(\"Verify the job in the response \", function () {",
+							"     pm.expect(jsonData.job).equals(pm.globals.get(\"current_job\"));",
+							"});",
+							"",
+							"pm.test(\"Verify data is present in createdAt \", function () {",
+							"    pm.expect(jsonData.createdAt).not.empty;",
+							"});",
+							"",
+							"pm.test(\"Verify data is present in id \", function () {",
+							"    pm.expect(jsonData.id).not.empty;",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"morpheus\",\n    \"job\": \"leader\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/users",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData =  pm.response.json();",
+							"",
+							"pm.test(\"Verify the name in the response \", function () {",
+							"    pm.expect(jsonData.name).equals(pm.globals.get(\"name\"));",
+							"});",
+							"pm.test(\"Verify the updated job in the response \", function () {",
+							"     pm.expect(jsonData.job).equals(pm.globals.get(\"update_job\"));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n    \"name\": \"morpheus\",\n    \"job\": \"zion resident\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/users/2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users/2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

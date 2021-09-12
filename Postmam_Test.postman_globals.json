@@ -1,0 +1,39 @@
+{
+	"id": "ef1c8ab2-283c-4f74-8b09-82eb37aa18ca",
+	"values": [
+		{
+			"key": "url",
+			"value": "https://reqres.in",
+			"enabled": true
+		},
+		{
+			"key": "support_url",
+			"value": "https://reqres.in/#support-heading",
+			"enabled": true
+		},
+		{
+			"key": "support_text",
+			"value": "To keep ReqRes free, contributions towards server costs are appreciated!",
+			"enabled": true
+		},
+		{
+			"key": "name",
+			"value": "morpheus",
+			"enabled": true
+		},
+		{
+			"key": "current_job",
+			"value": "leader",
+			"enabled": true
+		},
+		{
+			"key": "update_job",
+			"value": "zion resident",
+			"enabled": true
+		}
+	],
+	"name": "Postmam_Test Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2021-09-12T12:13:04.236Z",
+	"_postman_exported_using": "Postman/8.6.2"
+}
